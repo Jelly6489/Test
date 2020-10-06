@@ -28,20 +28,18 @@ class ViewController(QMainWindow, form_class):
     def get_login_info(self):
         accCnt = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "ACCOUNT_CNT")
         accList = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "ACCLIST")
-        userid = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "USER_ID")
+        userId = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "USER_ID")
         userName = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "USER_NAME")
         keyBSEC = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "KEY_BSECGB")
         firew = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "FIREW_SECGB")
         serverGubun = self.kiwoom.dynamicCall("GetLoginInfo(QString)", "GetServerGubun")
 
+        self.myModel.myLoginInfo = dm.DataModel.LoginInfo(accCnt, accList, userId, userName, keyBSEC, firew, serverGubun)
 
-        print("계좌 수:" + str(accCnt))
-        print("계좌 리스트:" + str(accList))
-        print("사용자 ID:" + str(userid))
-        print("사용자 이름:" + str(userName))
-        print("키보드 보안:" + str(keyBSEC))
-        print("방화벽 설정:" + str(firew))
-        print("접속서버 구분:" + str(serverGubun))
+        self.statusbar.showMessage(self.myModel.myLoginInfo.getServerGubun())
+
+        print("나의 이름: " + str(self.myModel.myLoginInfo.userName))
+        print("나의 계좌: " + str(self.myModel.myLoginInfo.accList))
 
     def event_connect(self, nErrCode):
         if nErrCode == 0:

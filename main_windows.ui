@@ -20,7 +20,7 @@
       <x>190</x>
       <y>80</y>
       <width>91</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -39,8 +39,14 @@
       <x>10</x>
       <y>80</y>
       <width>171</width>
-      <height>41</height>
+      <height>31</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>맑은 고딕</family>
+      <pointsize>11</pointsize>
+     </font>
     </property>
    </widget>
   </widget>
