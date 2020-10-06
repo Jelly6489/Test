@@ -39,11 +39,12 @@ class ViewController(QMainWindow, form_class):
         self.statusbar.showMessage(self.myModel.myLoginInfo.getServerGubun())
 
         print("나의 이름: " + str(self.myModel.myLoginInfo.userName))
-        print("나의 계좌: " + str(self.myModel.myLoginInfo.accList))
+        print("나의 ID: " + str(self.myModel.myLoginInfo.userId))
+        print("나의 계좌: " + str(self.myModel.myLoginInfo.accList.rstrip(';')))
 
     def event_connect(self, nErrCode):
         if nErrCode == 0:
-            self.statusbar.showMessage("로그인 성공")
+            self.label.setText("로그인 성공")
             self.get_login_info()
         elif nErrCode == 100:
             print("사용자 정보 교환 실패")

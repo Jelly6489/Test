@@ -7,7 +7,7 @@ class DataModel:
         def __init__(self, accCnt, accList, userId, userName, keyBSEC, firew, serverGubun):
            self.accCnt = accCnt
            self.accList = accList
-           self.userid = userId
+           self.userId = userId
            self.userName = userName
            self.keyBSEC = keyBSEC
            self.firew = firew
@@ -15,7 +15,7 @@ class DataModel:
 
         def getServerGubun(self):
             if self.serverGubun == "1":
-                return "모의 투자"
+                return "모의 투자 로그인 성공"
             else:
                 return "실 서버"
 
