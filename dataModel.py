@@ -1,7 +1,8 @@
 class DataModel:
     def __init__(self):
         print("Data Model")
-        myLoginInfo = None
+        self.myLoginInfo = None
+        self.itemList = []
 
     class LoginInfo:
         def __init__(self, accCnt, accList, userId, userName, keyBSEC, firew, serverGubun):
@@ -18,5 +19,10 @@ class DataModel:
                 return "모의 투자 로그인 성공"
             else:
                 return "실 서버"
+
+    class ItemInfo:
+        def __init__(self, itemCode, itemName):
+            self.itemCode = itemCode
+            self.itemName = itemName
 
            # print("userName: " + str(userName))
