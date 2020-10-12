@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="searchItemButton">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -30,10 +30,10 @@
      </font>
     </property>
     <property name="text">
-     <string>수집</string>
+     <string>검색</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QTextEdit" name="searchItemText">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -60,6 +60,41 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="textEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>100</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>맑은 고딕</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>100</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>맑은 고딕</family>
+      <pointsize>11</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>일봉 수집</string>
     </property>
    </widget>
   </widget>

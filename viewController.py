@@ -3,6 +3,9 @@ import sys
 import datetime
 import time
 import os
+import json
+import requests
+# import dictStock as ds
 
 #pyqt
 from PyQt5.QtWidgets import *
@@ -53,6 +56,8 @@ class ViewController(QMainWindow, form_class):
         # 키움 Open API Trigger
         self.kiwoom.OnReceiveTrData.connect(self.receive_trdata)
         self.kiwoom.OnEventConnect.connect(self.event_connect)
+        # UI event Trigger
+        self.searchItemButton.clicked.connect(self.searchItem)
 
         # Qt Trigger
         self.pushButton.clicked.connect(self.getDatas)
@@ -62,7 +67,7 @@ class ViewController(QMainWindow, form_class):
         if nErrCode == 0:
             self.label.setText("로그인 성공")
             self.get_login_info()
-            # self.getItemList()
+            self.getItemList()
             # ---
             self.getCodeListByMarket()
             # ---
@@ -92,6 +97,15 @@ class ViewController(QMainWindow, form_class):
         print("나의 ID: " + str(self.myModel.myLoginInfo.userId))
         print("나의 계좌: " + str(self.myModel.myLoginInfo.accList.rstrip(';')))
 
+        # # GET
+        # res = requests.get('http://localhost:8080/member/changeAppId')
+        # print(str(res.status_code) + " | " + res.text)
+        #
+        # # POST (JSON)
+        # headers = {'Content-Type': 'application/json; chearset=utf-8'}
+        # payload = {'UserId': 'userId'}
+        # res = requests.post('http://localhost:8080/member/changeAppId', payload=json.dumps(payload), headers=headers)
+        # print(str(res.status_code) + " | " + res.text)
 
     ### 종목리스트 가져와서 저장
     def getCodeListByMarket(self):
@@ -108,11 +122,11 @@ class ViewController(QMainWindow, form_class):
         scrNo = 0  # 키움 OpenAPI의 경우에 200개의 스크린 번호를 사용할수 있고, 해당 스크린 번호가 겹치면 이상한 데이터가 섞여서 올수 있음
         checkPoint = -1  # 전에 수집한 데이터 수집은 건너뛰고 데이터 수집을 하기 위해 변수 사용
         startStock = self.textEdit.toPlainText()  # 데이터 수집을 시작할 종목이름
+
         for key in self.dicStock.keys():
             if self.dicStock[key] == startStock:
                 checkPoint = 0
 
-            if checkPoint == 0:
                 scrNo += 1
                 scrNo = scrNo % 199
                 print(key, "수집 시작")
@@ -158,6 +172,12 @@ class ViewController(QMainWindow, form_class):
         self.input_data.clear()
         self.repeatNum = 0
 
+        json_object = {
+            line
+        }
+        json_string = json.dumps(json_object)
+        print(json_string)
+
     # 데이터 수신 후 저장
     def receive_trdata(self, screen_no, rqname, trcode, recordname, prev_next, data_len, err_code, msg1, msg2):
         if trcode == "opt10081":
@@ -186,6 +206,14 @@ class ViewController(QMainWindow, form_class):
                             self.kiwoom.dynamicCall("GetCommData(Qstring, QString, int, QString)", trcode, rqname,
                                                     index, "거래대금"))
 
+                        # data = {
+                        #     # 'itemName' : itemName,
+                        #     'date' : m_date,
+                        #     'openPrice' : openPrice
+                        # }
+                        # json_data = json.dumps(data)
+                        # print(json_data)
+
                         self.input_data.append(
                             (m_date, openPrice, highPrice, lowPrice, currentPrice, volumn, tradingValue))
 
@@ -193,9 +221,18 @@ class ViewController(QMainWindow, form_class):
                         self.repeatNum = -1
                     else:
                         self.repeatNum = prev_next
+
+    # def setItemList(self, itemName, m_date, openPrice):
+    #
+    #     data = {
+    #         'itemName' : itemName,
+    #         'date' : m_date,
+    #         'openPrice' : openPrice
+    #     }
+    #     json_data = json.dumps(data)
+    #     print(json_data)
     ###
 
-# backup
 #     종목 리스트 요청
     def getItemList(self):
         marketList = ["0", "10"]
@@ -208,16 +245,29 @@ class ViewController(QMainWindow, form_class):
 
             print(self.myModel.itemList[0].itemName)
 
-
-
-
-    # def searchItem(self):
-    #     itemName = self.searchItemText.toPlainText()
-    #     print("입력 종목 명: " + itemName)
-    #     for item in self.myModel.itemList:
-    #         if item.itemName == itemName:
-    #             print("종목코드: " + item.itemCode)
-    #             print("종목 명: " + item.itemName)
-    #             break
+    def searchItem(self):
+        itemName = self.searchItemText.toPlainText()
+        print("입력 종목 명: " + itemName)
+        for item in self.myModel.itemList:
+            if item.itemName == itemName:
+                print("종목코드: " + item.itemCode)
+                print("종목 명: " + item.itemName)
+                break
 
 ##
+
+
+# import json
+#
+# json_object = {
+#     "name": itemName,
+#     "일자": m_date,
+#     "시가": openPrice,
+#     "고가": highPrice,
+#     "저가": lowPrice,
+#     "현재가": currentPrice,
+#     "거래량": volumn,
+#     "거래대금": tradingValue
+# }
+# json_string = json.dumps(json_object)
+# print(json_string)

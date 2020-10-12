@@ -1,6 +1,7 @@
 import csv
 import os
 import pandas as pd
+import json
 
 
 #
@@ -19,6 +20,16 @@ def dataReadAndProcess(itemName):
     f = open('./Data/' + itemName + '.csv', 'r', encoding='utf-8')
     rdr = csv.reader(f)
     rawData = []
+    #
+    jsonfile = open('./Data/' + itemName + '.json', 'w', encoding='utf-8')
+    fieldnames = ("m_date", "openPrice", "highPrice", "lowPrice", "currentPrice", "volumn", "tradingValue")
+    reader = csv.DictReader(f, fieldnames)
+    for row in reader:
+    # json_string = json.dumps(json_object)
+    # print(json_string)
+        json.dump(row, jsonfile)
+        jsonfile.write('\n')
+    #
 
     for line in rdr:
         rawData.append(line)
@@ -58,8 +69,27 @@ def dataProcess(itemList):
         saveCsv(item, data)
 
 
+
 if __name__ == "__main__":
     dirName = "./Data"
     itemList = search(dirName)
     dataProcess(itemList)
 
+# # # import json
+# # #
+# # # json_object = {
+# # #     "id": 1,
+# # #     "username": "Bret",
+# # #     "email": "Sincere@april.biz",
+# # #     "address": {
+# # #         "street": "Kulas Light",
+# # #         "suite": "Apt. 556",
+# # #         "city": "Gwenborough",
+# # #         "zipcode": "92998-3874"
+# # #     },
+# # #     "admin": False,
+# # #     "hobbies": None
+# # # }
+# # #
+# # # json_string = json.dumps(json_object)
+# # # print(json_string)

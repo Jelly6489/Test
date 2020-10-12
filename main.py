@@ -1,7 +1,8 @@
 import sys
 import viewController as vc
 import dataModel as dm
-import mysqlController as ms
+import dictStock as ds
+# import mysqlController as ms
 
 # dbconfig
 import dbconfig
@@ -19,6 +20,7 @@ class MyAutoTradeApp():
         print("매매 프로그램 클래스")
         self.myDataModel = dm.DataModel()
         self.myViewController = vc.ViewController(self.myDataModel)
+        # self.myDictStock = ds.DictStock()
         # self.myPyMySql = ms.MysqlController()
 
 
