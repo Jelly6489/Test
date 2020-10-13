@@ -16,7 +16,7 @@ class DataModel:
 
         def getServerGubun(self):
             if self.serverGubun == "1":
-                return "모의 투자 로그인 성공"
+                return "모의 투자"
             else:
                 return "실 서버"
 

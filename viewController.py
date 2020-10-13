@@ -70,9 +70,11 @@ class ViewController(QMainWindow, form_class):
             self.getItemList()
             # ---
             self.getCodeListByMarket()
+            self.listWidget.addItem(QListWidgetItem("로그인 성공"))
             # ---
 
         elif nErrCode == 100:
+
             print("사용자 정보 교환 실패")
         elif nErrCode == 101:
             print("서버 접속 실패")
@@ -97,8 +99,54 @@ class ViewController(QMainWindow, form_class):
         print("나의 ID: " + str(self.myModel.myLoginInfo.userId))
         print("나의 계좌: " + str(self.myModel.myLoginInfo.accList.rstrip(';')))
 
+        ### Test Python Dictionary
+        # appid = { 'id' : userId }
+        # jsonString = json.dumps(appid)
+        # print(jsonString)
+        # print(type(jsonString))
+
+        ### 인자 전달 --------------------------------------------------------------
+        # # Api id 변경
+        # url = "http://127.0.0.1:8080/member/changeAppId"
+        # payload = {'appid' : userId}
+        # r = requests.put(url, params=payload)
+        # print(r.status_code)
+        # print(r.text)
+        #
+        # print('status code: ', r.status_code, "// 200은 정상, 400 Data 누락")
+        # print('encoding: ', r.encoding)
+        #
+        # Api id 조회
+        url = "http://localhost:8000/member/find/"
+        payload = userId
+        r = requests.get(url, params=payload)
+        print(r.status_code)
+        print(r.text)
+        #
+        # print('status code: ', r.status_code, "// 200은 정상, 400 Data 누락")
+        # print('encoding: ', r.encoding)
+        ####################################################################
+        ##Create a dictionary to be sent.
+        # json_data = { 'id' : userId }
+        # ## Send the data.
+        # response = requests.get(url='http://127.0.0.1:8000/member/find/', json=json_data)
+        # print("Server responded with %s" % response.status_code)
+
+        #
+        # # Api id 중복 검색
+        # url = "http://127.0.0.1:8080/check/"
+        # payload = {userId}
+        # r = requests.get(url, params=payload)
+        # print(r.status_code)
+        # print(r.text)
+        #
+        # print('status code: ', r.status_code, "// 200은 정상, 400 Data 누락")
+        # print('encoding: ', r.encoding)
+
+        ###----------------------------------------------------------------------------
+
         # # GET
-        # res = requests.get('http://localhost:8080/member/changeAppId')
+        # res = requests.get('http://127.0.0.1:8080/member/changeAppId')
         # print(str(res.status_code) + " | " + res.text)
         #
         # # POST (JSON)
@@ -169,14 +217,14 @@ class ViewController(QMainWindow, form_class):
 
         print(itemName, " 저장")
 
-        self.input_data.clear()
-        self.repeatNum = 0
-
-        json_object = {
-            line
-        }
-        json_string = json.dumps(json_object)
-        print(json_string)
+        # self.input_data.clear()
+        # self.repeatNum = 0
+        #
+        # json_object = {
+        #     line
+        # }
+        # json_string = json.dumps(json_object)
+        # print(json_string)
 
     # 데이터 수신 후 저장
     def receive_trdata(self, screen_no, rqname, trcode, recordname, prev_next, data_len, err_code, msg1, msg2):
@@ -248,26 +296,30 @@ class ViewController(QMainWindow, form_class):
     def searchItem(self):
         itemName = self.searchItemText.toPlainText()
         print("입력 종목 명: " + itemName)
+        self.listWidget.addItem(QListWidgetItem("입력 종목 명: " + itemName))
         for item in self.myModel.itemList:
             if item.itemName == itemName:
                 print("종목코드: " + item.itemCode)
                 print("종목 명: " + item.itemName)
+                self.listWidget.addItem(QListWidgetItem("종목코드: " + item.itemCode))
+                self.listWidget.addItem(QListWidgetItem("종목 명: " + item.itemName))
                 break
-
-##
-
-
-# import json
-#
-# json_object = {
-#     "name": itemName,
-#     "일자": m_date,
-#     "시가": openPrice,
-#     "고가": highPrice,
-#     "저가": lowPrice,
-#     "현재가": currentPrice,
-#     "거래량": volumn,
-#     "거래대금": tradingValue
-# }
-# json_string = json.dumps(json_object)
-# print(json_string)
+    #
+    # def btn1_clicked(self):
+    #     code = self.code_edit.text()
+    #     self.text_edit.append("종목코드: " + code)
+    #
+    #
+    #     # SetInputValue
+    #     self.kiwoom.dynamicCall("SetInputValue(QString, QString)", "종목코드", code)
+    #
+    #     # CommRqData
+    #     self.kiwoom.dynamicCall("CommRqData(QString, QString, int, QString)", "opt10001_req", "opt10001", 0, "0101")
+    #
+    # def receive_stock_trdata(self, screen_no, rqname, trcode, recordname, prev_next, data_len, err_code, msg1, msg2):
+    #     if rqname == "opt10001_req":
+    #         name = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, 0, "종목명")
+    #         volume = self.kiwoom.dynamicCall("CommGetData(QString, QString, QString, int, QString)", trcode, "", rqname, 0, "거래량")
+    #
+    #         self.text_edit.append("종목명: " + name.strip())
+    #         self.text_edit.append("거래량: " + volume.strip())
