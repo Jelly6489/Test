@@ -11,9 +11,62 @@ https://blog.naver.com/kkseyj/221842021760
 ### csv 파일 읽기
 http://pythonstudy.xyz/python/article/207-CSV-%ED%8C%8C%EC%9D%BC-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0
 
+### 주식 기본 정보
+https://t9story.tistory.com/4
+
+### post
+https://dgkim5360.tistory.com/entry/python-requests
+
+###
+https://velog.io/@k904808/Fork-%ED%95%9C-Repository-%EC%97%85%EB%8D%B0%EC%9D%B4%ED%8A%B8-%ED%95%98%EA%B8%B0
+
+### IPC 통신
+https://tbacking.com/2018/01/17/3264%EB%B9%84%ED%8A%B8-%ED%8C%8C%EC%9D%B4%EC%8D%AC-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%ED%86%B5%EC%8B%A0/
+###
+
+### 자동매매 주요 url
+https://m.blog.naver.com/o12486vs2/221956244120
+'
+### https://m.blog.naver.com/o1'2486vs2/221953735309
+
+###
+### IPC 32bit 64bit
+import subprocess
+import os
+
+from subprocess import Popen
+from subprocess import PIPE
+
+fd = open('output.txt', 'w')
+
+p1 = Popen(["dmesg"], stdout=subprocess.PIPE)
+p2 = Popen(["grep", "hda"], stdin=p1.stdout, stdout=fd)
+
+p1.stdout.close()
+output = p2.communicate()[0]
+
+fd.close()
+
+### 확인
+!cat output.txt
+###
+
+### 기사 제목을 가지고 긍정 / 부정 / 중립 분류 모델
+https://somjang.tistory.com/entry/Keras%EA%B8%B0%EC%82%AC-%EC%A0%9C%EB%AA%A9%EC%9D%84-%EA%B0%80%EC%A7%80%EA%B3%A0-%EA%B8%8D%EC%A0%95-%EB%B6%80%EC%A0%95-%EC%A4%91%EB%A6%BD-%EB%B6%84%EB%A5%98%ED%95%98%EB%8A%94-%EB%AA%A8%EB%8D%B8-%EB%A7%8C%EB%93%A4%EC%96%B4%EB%B3%B4%EA%B8%B0
+
+
+
+자동 - 자동 매매
+반자동 - 매매하기 전 추천을 해줌
+      - 추천하는 방향이 아니라면 재 확인 ex) 정말 사시겠습니까 -> 해당 종목 정보 표시 -> Yes, No로 표현
+수동 - 사용자가 수동으로 매매
+
 
 ###
 
+mysql
+
+###
 import dataModel as dm
 import sys
 import datetime

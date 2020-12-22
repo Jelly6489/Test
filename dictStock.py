@@ -18,11 +18,6 @@ import requests
 # res = requests.post('http://localhost:8080/member/changeAppId', payload=json.dumps(payload), headers=headers)
 # print(str(res.status_code) + " | " + res.text)
 
-
-
-
-
-
 #
 # class DictStock:
 #     @app.route('/history/buy')
