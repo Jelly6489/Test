@@ -7,3 +7,5 @@ QT Design으로 UI 제작
 anaconda3 - python 32 bit 3.7 
 
 kioom Open API
+
+![Test](https://user-images.githubusercontent.com/67304364/105473178-23eb8780-5ce0-11eb-817f-220ab3af44f4.PNG)
